@@ -5,4 +5,5 @@ RUN apk add --no-cache \
 	openssh \
 	git \
 	ansible \
+	make \
 	py3-dnspython
