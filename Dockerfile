@@ -6,5 +6,6 @@ RUN apk add --no-cache \
 	git \
 	ansible \
 	make \
+	just \
 	py3-dnspython \
 	py3-passlib
