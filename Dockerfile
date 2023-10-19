@@ -1,4 +1,4 @@
-FROM docker.io/alpine:3.17.2
+FROM docker.io/alpine:3.18.4
 
 RUN apk add --no-cache \
 	ca-certificates \
