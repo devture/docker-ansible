@@ -12,7 +12,7 @@ services:
       - dockerd --tls=false --host=tcp://0.0.0.0:2376
     privileged: true
 
-pipeline:
+steps:
   build-and-push-for-branch:
     when:
       - event: push
