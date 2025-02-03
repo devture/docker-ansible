@@ -1,6 +1,6 @@
 # Ansible Docker container image
 
-The goal of this project is to provide an up-to-date version of [Ansible](https://www.ansible.com/) that people can run in a ([Docker](https://www.docker.com/)) container.
+The goal of this project is to provide an up-to-date version of [Ansible](https://www.ansible.com/) and [agru](https://github.com/etkecc/agru) that people can run in a ([Docker](https://www.docker.com/)) container.
 
 This project was created for [spantaleev/matrix-docker-ansible-deploy](https://github.com/spantaleev/matrix-docker-ansible-deploy) (see [Using Ansible via Docker](https://github.com/spantaleev/matrix-docker-ansible-deploy/blob/master/docs/ansible.md#using-ansible-via-docker)).
 
