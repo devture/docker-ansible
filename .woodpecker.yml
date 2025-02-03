@@ -15,7 +15,6 @@ services:
 
 steps:
   - name: build-and-push-for-branch
-    privileged: true
     when:
       - event: push
         branch: ${CI_REPO_DEFAULT_BRANCH}
@@ -32,7 +31,6 @@ steps:
       platforms: *platforms
 
   - name: build-and-push-for-tag
-    privileged: true
     when:
       - event: tag
     image: *builder_image
