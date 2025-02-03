@@ -4,17 +4,18 @@ variables:
   - &repo 'docker.io/devture/ansible'
   - &dockerfile 'Dockerfile'
   - &platforms 'linux/amd64,linux/arm64/v8,linux/arm/v7'
-  - &builder_image woodpeckerci/plugin-docker-buildx:5.0.0
+  - &builder_image woodpeckerci/plugin-docker-buildx:5.2.0
 
 services:
   docker:
-    image: docker:27.1.1-dind
+    image: docker:27.5.1-dind
     commands:
       - dockerd --tls=false --host=tcp://0.0.0.0:2376
     privileged: true
 
 steps:
   - name: build-and-push-for-branch
+    privileged: true
     when:
       - event: push
         branch: ${CI_REPO_DEFAULT_BRANCH}
@@ -31,6 +32,7 @@ steps:
       platforms: *platforms
 
   - name: build-and-push-for-tag
+    privileged: true
     when:
       - event: tag
     image: *builder_image
