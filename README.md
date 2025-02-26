@@ -7,10 +7,10 @@ This project was created for [spantaleev/matrix-docker-ansible-deploy](https://g
 
 ## Building
 
-If you need to build it yourself, instead of using the [devture/ansible](https://hub.docker.com/r/devture/ansible/) image that we publish to Docker Hub.
+If you need to build it yourself, instead of using the [ghcr.io/devture/ansible](https://github.com/devture/docker-ansible/pkgs/container/ansible) image that we publish to Docker Hub.
 
 ```bash
-docker build -t devture/ansible:latest -f Dockerfile .
+docker build -t ghcr.io/devture/ansible:latest -f Dockerfile .
 ```
 
 ## Usage
@@ -28,7 +28,7 @@ docker run -it --rm \
 -v `pwd`:/work \
 -v $HOME/.ssh/id_rsa:/root/.ssh/id_rsa:ro \
 --entrypoint=/bin/sh \
-devture/ansible:latest
+ghcr.io/devture/ansible:latest
 ```
 
 You can execute `ansible-playbook` commands as per normal now.
@@ -47,7 +47,7 @@ docker run -it --rm \
 -w /work \
 -v `pwd`:/work \
 --entrypoint=/bin/sh \
-devture/ansible:latest
+ghcr.io/devture/ansible:latest
 ```
 
 When invoking the `ansible-playbook` commands, ensure that:
