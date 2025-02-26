@@ -1,4 +1,4 @@
-FROM golang:1.23.5-alpine3.21 AS builder
+FROM docker.io/golang:1.24.0-alpine3.21 AS builder
 
 ARG AGRU_VERSION=v0.1.13
 
@@ -10,7 +10,7 @@ RUN git clone https://github.com/etkecc/agru.git && \
 				just build
 
 
-FROM docker.io/alpine:3.21.1
+FROM docker.io/alpine:3.21.3
 
 COPY --from=builder /go/agru/agru /usr/local/bin/
 
