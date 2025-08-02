@@ -1,6 +1,6 @@
 FROM docker.io/golang:1.24.5-alpine3.22 AS builder
 
-ARG AGRU_VERSION=v0.1.15
+ARG AGRU_VERSION=v0.1.16
 
 RUN apk add --no-cache git just
 
