@@ -1,16 +1,16 @@
-FROM docker.io/golang:1.24.0-alpine3.21 AS builder
+FROM docker.io/golang:1.24.5-alpine3.22 AS builder
 
 ARG AGRU_VERSION=v0.1.15
 
 RUN apk add --no-cache git just
 
 RUN git clone https://github.com/etkecc/agru.git && \
-				cd agru && \
-				git checkout ${AGRU_VERSION} && \
-				just build
+	cd agru && \
+	git checkout ${AGRU_VERSION} && \
+	just build
 
 
-FROM docker.io/alpine:3.21.3
+FROM docker.io/alpine:3.22.1
 
 COPY --from=builder /go/agru/agru /usr/local/bin/
 
