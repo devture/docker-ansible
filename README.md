@@ -59,3 +59,12 @@ When invoking the `ansible-playbook` commands, ensure that:
 - you *either* add `--connection=community.docker.nsenter` to the command (e.g. `ansible-playbook --connection=community.docker.nsenter ...`)
 
 - *or* that you've set `ansible_connection=community.docker.nsenter` for each host that needs it in your Ansible `hosts` file
+
+
+## Interactive SSH prompts
+
+Since Ansible 2.21, forked workers call `setsid()` and thus lose the controlling terminal. SSH cannot open `/dev/tty` anymore, so it can no longer ask you to confirm an unknown host key or prompt you for the passphrase of an SSH key. It fails with `Host key verification failed` instead.
+
+This image is meant to be used interactively (note the `-it` in the `docker run` invocations above) and its container is thrown away after each use, so a host key confirmed in a previous run would not be remembered anyway. We therefore set `ANSIBLE_WORKER_SESSION_ISOLATION=False` in the image, which restores the previous behavior.
+
+If you would rather have the Ansible default, pass `-e ANSIBLE_WORKER_SESSION_ISOLATION=True` to `docker run`.

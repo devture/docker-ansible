@@ -23,3 +23,13 @@ RUN apk add --no-cache \
 	just \
 	py3-dnspython \
 	py3-passlib
+
+# Since Ansible 2.21, forked workers call `setsid()` and thus lose the controlling terminal.
+# SSH cannot open `/dev/tty` anymore, so it can no longer ask about unknown host keys
+# or prompt for the passphrase of an SSH key, failing with `Host key verification failed` instead.
+#
+# This image is meant to be used interactively (see the `docker run -it` invocations in the README),
+# where these prompts are expected to work, so we restore the previous behavior.
+#
+# Pass `-e ANSIBLE_WORKER_SESSION_ISOLATION=True` to `docker run` to get the Ansible default back.
+ENV ANSIBLE_WORKER_SESSION_ISOLATION=False
