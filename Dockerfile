@@ -22,7 +22,8 @@ RUN apk add --no-cache \
 	make \
 	just \
 	py3-dnspython \
-	py3-passlib
+	py3-passlib \
+	py3-regex
 
 # Since Ansible 2.21, forked workers call `setsid()` and thus lose the controlling terminal.
 # SSH cannot open `/dev/tty` anymore, so it can no longer ask about unknown host keys
