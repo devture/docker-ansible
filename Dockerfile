@@ -25,12 +25,10 @@ RUN apk add --no-cache \
 	py3-passlib \
 	py3-regex
 
-# Since Ansible 2.21, forked workers call `setsid()` and thus lose the controlling terminal.
-# SSH cannot open `/dev/tty` anymore, so it can no longer ask about unknown host keys
-# or prompt for the passphrase of an SSH key, failing with `Host key verification failed` instead.
-#
-# This image is meant to be used interactively (see the `docker run -it` invocations in the README),
-# where these prompts are expected to work, so we restore the previous behavior.
-#
-# Pass `-e ANSIBLE_WORKER_SESSION_ISOLATION=True` to `docker run` to get the Ansible default back.
-ENV ANSIBLE_WORKER_SESSION_ISOLATION=False
+# Since Ansible 2.21, forked workers lose the controlling terminal, so SSH cannot
+# prompt for confirming an unknown host key — it fails or hangs instead
+# (https://github.com/devture/docker-ansible/issues/6). This container is also thrown
+# away after each use, so a key confirmed via a prompt would not be remembered anyway.
+# We therefore auto-accept the keys of previously unknown hosts.
+# A host whose key has *changed* still fails loudly.
+RUN printf '\nHost *\n\tStrictHostKeyChecking accept-new\n' >> /etc/ssh/ssh_config

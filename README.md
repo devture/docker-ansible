@@ -61,10 +61,10 @@ When invoking the `ansible-playbook` commands, ensure that:
 - *or* that you've set `ansible_connection=community.docker.nsenter` for each host that needs it in your Ansible `hosts` file
 
 
-## Interactive SSH prompts
+## SSH host keys and passphrases
 
-Since Ansible 2.21, forked workers call `setsid()` and thus lose the controlling terminal. SSH cannot open `/dev/tty` anymore, so it can no longer ask you to confirm an unknown host key or prompt you for the passphrase of an SSH key. It fails with `Host key verification failed` instead.
+Since Ansible 2.21, forked workers lose the controlling terminal, so SSH cannot prompt you (neither to confirm an unknown host key, nor for the passphrase of an SSH key).
 
-This image is meant to be used interactively (note the `-it` in the `docker run` invocations above) and its container is thrown away after each use, so a host key confirmed in a previous run would not be remembered anyway. We therefore set `ANSIBLE_WORKER_SESSION_ISOLATION=False` in the image, which restores the previous behavior.
+This image therefore sets `StrictHostKeyChecking accept-new`: keys of previously unknown hosts are accepted automatically and a *changed* host key still fails loudly. To verify host keys yourself, mount your own `known_hosts` file (`--mount type=bind,src=$HOME/.ssh/known_hosts,dst=/root/.ssh/known_hosts,ro`).
 
-If you would rather have the Ansible default, pass `-e ANSIBLE_WORKER_SESSION_ISOLATION=True` to `docker run`.
+For a passphrase-protected SSH key, use an [ssh-agent](https://man.openbsd.org/ssh-agent) instead of mounting the key: `--mount type=bind,src=$SSH_AUTH_SOCK,dst=/ssh-agent --env SSH_AUTH_SOCK=/ssh-agent`.
