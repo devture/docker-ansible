@@ -23,12 +23,12 @@ If you can connect to the remote server using SSH, use the following command:
 ```bash
 cd /some/ansible-project
 
-docker run
+docker run \
 -it \
 --rm \
 -w /work \
 --mount type=bind,src=`pwd`,dst=/work \
---mount type=bind,src$HOME/.ssh/id_ed25519,dst=/root/.ssh/id_ed25519,ro \
+--mount type=bind,src=$HOME/.ssh/id_ed25519,dst=/root/.ssh/id_ed25519,ro \
 --entrypoint=/bin/sh \
 ghcr.io/devture/ansible:latest
 ```
@@ -43,7 +43,7 @@ If you'd like to run Ansible in a container on the server, and then target that 
 ```bash
 cd /some/ansible-project
 
-docker run
+docker run \
 -it \
 --rm \
 --privileged \
