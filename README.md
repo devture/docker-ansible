@@ -7,11 +7,19 @@ This project was created for [spantaleev/matrix-docker-ansible-deploy](https://g
 
 ## Building
 
-If you need to build it yourself, instead of using the [ghcr.io/devture/ansible](https://github.com/devture/docker-ansible/pkgs/container/ansible) image that we publish to Docker Hub.
+If you need to build it yourself, instead of using the [ghcr.io/devture/ansible](https://github.com/devture/docker-ansible/pkgs/container/ansible) image that we publish to the GitHub Container Registry.
 
 ```bash
 docker build -t ghcr.io/devture/ansible:latest -f Dockerfile .
 ```
+
+## Releases
+
+Releases are tagged automatically as `<ansible version>-<release>` (e.g. `14.0.0-r0-0`), where `<ansible version>` is the exact version of Alpine's `ansible` package in the image.
+
+A push to `main` always refreshes the `latest` tag. It also creates a new release if the `Dockerfile` changed since the previous release of the same Ansible version. A weekly scheduled run releases new `ansible` packages that Alpine starts offering, and does nothing otherwise.
+
+Prefer a tagged release over `latest`, so that tools like [Renovate](https://docs.renovatebot.com/) can keep it up to date for you.
 
 ## Usage
 
