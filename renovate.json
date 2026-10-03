@@ -1,0 +1,17 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "github>mother-of-all-self-hosting/renovate-config#v1.1.0",
+    "customManagers:dockerfileVersions"
+  ],
+  "packageRules": [
+    {
+      "description": "Alpine base image and Golang builder image patch bumps: automerge on a branch once the check workflow (build for all platforms + smoke test) passes. Each one lands on main and triggers a release.",
+      "matchManagers": ["dockerfile"],
+      "matchDepNames": ["docker.io/alpine", "docker.io/golang"],
+      "matchUpdateTypes": ["patch"],
+      "automerge": true,
+      "automergeType": "branch"
+    }
+  ]
+}

@@ -1,5 +1,6 @@
 FROM docker.io/golang:1.26.5-alpine3.24 AS builder
 
+# renovate: datasource=github-tags depName=etkecc/agru
 ARG AGRU_VERSION=v0.2.1
 
 RUN apk add --no-cache git just
