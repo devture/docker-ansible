@@ -12,13 +12,18 @@ RUN git clone https://github.com/etkecc/agru.git && \
 
 FROM docker.io/alpine:3.24.1
 
+# The exact `ansible` package version to install (e.g. `14.0.0-r0`), as printed by `bin/resolve-ansible-version.sh`.
+# CI always passes it, so that the image tag can be determined before building.
+# Left empty, the latest available version gets installed.
+ARG ANSIBLE_VERSION=
+
 COPY --from=builder /go/agru/agru /usr/local/bin/
 
 RUN apk add --no-cache \
 	ca-certificates \
 	openssh \
 	git \
-	ansible \
+	"ansible${ANSIBLE_VERSION:+=$ANSIBLE_VERSION}" \
 	make \
 	just \
 	py3-dnspython \
