@@ -11,7 +11,7 @@ RUN git clone https://github.com/etkecc/agru.git && \
 	just build
 
 
-FROM docker.io/alpine:3.24.1
+FROM docker.io/alpine:3.24.2
 
 # The exact `ansible` package version to install (e.g. `14.0.0-r0`), as printed by `bin/resolve-ansible-version.sh`.
 # CI always passes it, so that the image tag can be determined before building.
