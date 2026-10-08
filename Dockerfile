@@ -1,4 +1,4 @@
-FROM docker.io/golang:1.27.1-alpine3.24 AS builder
+FROM docker.io/golang:1.27.2-alpine3.24 AS builder
 
 # renovate: datasource=github-tags depName=etkecc/agru
 ARG AGRU_VERSION=v0.3.0
